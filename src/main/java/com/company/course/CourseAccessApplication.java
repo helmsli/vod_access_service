@@ -1,4 +1,4 @@
-package com.company.vod;
+package com.company.course;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -13,14 +13,12 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @SpringBootApplication
 @Configuration
 @EnableAutoConfiguration
-//@EnableRedisHttpSession
-//@EnableRedisHttpSession 
-@ComponentScan ("com.company.vod,com.company.security.utils")
+@ComponentScan ("com.company.course,com.company.security.utils")
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 86400*30)
-public class VodAccessApplication {
+public class CourseAccessApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VodAccessApplication.class, args);
+		SpringApplication.run(CourseAccessApplication.class, args);
 		
 		try {
 			

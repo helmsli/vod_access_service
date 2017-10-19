@@ -1,7 +1,7 @@
-package com.company.vod.service;
+package com.company.course.service;
 
-import com.company.vod.domain.AliVodPlayInfo;
-import com.company.vod.domain.AliVodUploadInfo;
+import com.company.course.domain.AliVodPlayInfo;
+import com.company.course.domain.AliVodUploadInfo;
 import com.xinwei.nnl.common.domain.ProcessResult;
 
 

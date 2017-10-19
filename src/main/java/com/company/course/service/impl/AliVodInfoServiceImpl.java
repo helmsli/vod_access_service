@@ -1,4 +1,4 @@
-package com.company.vod.service.impl;
+package com.company.course.service.impl;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -25,13 +25,13 @@ import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.aliyuncs.vod.model.v20170321.RefreshUploadVideoRequest;
 import com.aliyuncs.vod.model.v20170321.RefreshUploadVideoResponse;
-import com.company.vod.Const.VodServiceConst;
-import com.company.vod.domain.AliVodMetaData;
-import com.company.vod.domain.AliVodPlayInfo;
-import com.company.vod.domain.AliVodUploadInfo;
-import com.company.vod.domain.AliyunSignature;
-import com.company.vod.service.AliVodService;
-import com.company.vod.utils.AliyunUtils;
+import com.company.course.Const.CourseServiceConst;
+import com.company.course.domain.AliVodMetaData;
+import com.company.course.domain.AliVodPlayInfo;
+import com.company.course.domain.AliVodUploadInfo;
+import com.company.course.domain.AliyunSignature;
+import com.company.course.service.AliVodService;
+import com.company.course.utils.AliyunUtils;
 import com.xinwei.nnl.common.domain.ProcessResult;
 @Service("aliVodService")
 public class AliVodInfoServiceImpl implements AliVodService,InitializingBean {
@@ -57,7 +57,7 @@ public class AliVodInfoServiceImpl implements AliVodService,InitializingBean {
 	@Override
 	public int createUploadVideo(AliVodUploadInfo aliyunVodinfo) {
 		// TODO Auto-generated method stub
-		int iRet =  VodServiceConst.RESULT_Error_Fail;
+		int iRet =  CourseServiceConst.RESULT_Error_Fail;
 		CreateUploadVideoRequest request = new CreateUploadVideoRequest();
 	        CreateUploadVideoResponse response = null;
 	        try {
@@ -88,7 +88,7 @@ public class AliVodInfoServiceImpl implements AliVodService,InitializingBean {
 					aliyunVodinfo.setUploadAuth(response.getUploadAuth());
 					aliyunVodinfo.setVideoId(response.getVideoId());
 					
-	              iRet = VodServiceConst.RESULT_Success;
+	              iRet = CourseServiceConst.RESULT_Success;
 	        } catch (ServerException e) {
 	              System.out.println("CreateUploadVideoRequest Server Exception:");
 	              e.printStackTrace();
@@ -145,7 +145,7 @@ public class AliVodInfoServiceImpl implements AliVodService,InitializingBean {
 	 */
 	public ProcessResult getVideoPlayAuth(AliVodPlayInfo aliVodPlayInfo) {
 		ProcessResult processResult= new ProcessResult();
-		processResult.setRetCode(VodServiceConst.RESULT_Error_Fail);
+		processResult.setRetCode(CourseServiceConst.RESULT_Error_Fail);
 		GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
 		request.setVideoId(aliVodPlayInfo.getVideoId());
 		GetVideoPlayAuthResponse response = null;
@@ -164,7 +164,7 @@ public class AliVodInfoServiceImpl implements AliVodService,InitializingBean {
 			aliVodMetaData.setVideoId(response.getVideoMeta().getVideoId());
 			retAliVodPlayInfo.setVideoMeta(aliVodMetaData);
 			processResult.setResponseInfo(retAliVodPlayInfo);
-			processResult.setRetCode(VodServiceConst.RESULT_Success);
+			processResult.setRetCode(CourseServiceConst.RESULT_Success);
 		} catch (ServerException e) {
 			e.printStackTrace();
 		} catch (ClientException e) {

@@ -1,4 +1,4 @@
-package com.company.vod.Const;
+package com.company.course.Const;
 /**
  * session 中保存的常量
  * @author helmsli

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.company.vod.service.impl;
+package com.company.course.service.impl;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package com.company.vod.domain;
+package com.company.course.domain;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

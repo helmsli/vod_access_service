@@ -1,4 +1,4 @@
-package com.company.vod.domain;
+package com.company.course.domain;
 
 public class AliVodUploadInfo extends VodUploadInfo {
 	

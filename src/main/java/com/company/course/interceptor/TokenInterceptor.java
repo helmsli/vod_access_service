@@ -1,4 +1,4 @@
-package com.company.vod.interceptor;
+package com.company.course.interceptor;
 
 import java.lang.reflect.Method;
 import java.util.Enumeration;

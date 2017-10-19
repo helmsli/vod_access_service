@@ -1,4 +1,4 @@
-package com.company.vod.controller.rest;
+package com.company.course.controller.rest;
 import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,21 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.company.vod.Const.SessionKeyConst;
-import com.company.vod.Const.VodServiceConst;
-import com.company.vod.domain.AccessContext;
-import com.company.vod.domain.AliVodPlayInfo;
-import com.company.vod.domain.AliVodUploadInfo;
-import com.company.vod.domain.RequestAjax;
-import com.company.vod.service.AliVodService;
+import com.company.course.Const.SessionKeyConst;
+import com.company.course.Const.CourseServiceConst;
+import com.company.course.domain.AccessContext;
+import com.company.course.domain.AliVodPlayInfo;
+import com.company.course.domain.AliVodUploadInfo;
+import com.company.course.domain.RequestAjax;
+import com.company.course.service.AliVodService;
 import com.google.gson.reflect.TypeToken;
 import com.xinwei.nnl.common.domain.ProcessResult;
 import com.xinwei.nnl.common.util.JsonUtil;
 
 @RestController
 @RequestMapping("/vod")
-public class VodController {
+public class CourseController {
 	@Resource(name="aliVodService")
 	private AliVodService aliVodService;
 	/**
@@ -41,12 +40,12 @@ public class VodController {
 	@RequestMapping(method = RequestMethod.POST,value = "requestUploadVideo")
 	public  ProcessResult createUploadVideo(HttpServletRequest request,@RequestBody AliVodUploadInfo aliyunVodInfo) {
 		ProcessResult processResult = new ProcessResult();
-		processResult.setRetCode(VodServiceConst.RESULT_Error_Fail);
+		processResult.setRetCode(CourseServiceConst.RESULT_Error_Fail);
 		try {
 			AccessContext AccessContext = new AccessContext();
 			int iRet = aliVodService.createUploadVideo(aliyunVodInfo);
 			processResult.setRetCode(iRet);
-			if(iRet == VodServiceConst.RESULT_Success)
+			if(iRet == CourseServiceConst.RESULT_Success)
 			{
 				processResult.setResponseInfo(aliyunVodInfo);	
 			}
@@ -60,19 +59,19 @@ public class VodController {
 	@RequestMapping(method = RequestMethod.POST,value = "requestUpVideoList")
 	public  ProcessResult createUploadVideos(HttpServletRequest request,@RequestBody RequestAjax requestAjax) {
 		ProcessResult processResult = new ProcessResult();
-		processResult.setRetCode(VodServiceConst.RESULT_Error_Fail);
+		processResult.setRetCode(CourseServiceConst.RESULT_Error_Fail);
 		try {
 			//从客户端请求的字符串中解析出对象列表
 			List<AliVodUploadInfo> retList = new ArrayList<AliVodUploadInfo>();
 			List<AliVodUploadInfo> aliyunVodInfoList =  JsonUtil.fromJson(requestAjax.getReqParms(), new TypeToken<List<AliVodUploadInfo>>() {}.getType());
-			int iRet  = VodServiceConst.RESULT_Success;
+			int iRet  = CourseServiceConst.RESULT_Success;
 			for(AliVodUploadInfo aliVodUploadInfo:aliyunVodInfoList)
 			{
-				int iSingleRet = VodServiceConst.RESULT_Success;
+				int iSingleRet = CourseServiceConst.RESULT_Success;
 				for(int i=0;i<3;i++)
 				{
 					iSingleRet = aliVodService.createUploadVideo(aliVodUploadInfo);
-					if(iSingleRet==VodServiceConst.RESULT_Success)
+					if(iSingleRet==CourseServiceConst.RESULT_Success)
 					{
 						break;
 					}
@@ -82,7 +81,7 @@ public class VodController {
 					}
 				}//end for i=3
 				
-				if(iSingleRet != VodServiceConst.RESULT_Success)
+				if(iSingleRet != CourseServiceConst.RESULT_Success)
 				{
 					iRet = 	iSingleRet;
 					retList.add(null);
@@ -111,7 +110,7 @@ public class VodController {
 	@RequestMapping(method = RequestMethod.POST,value = "requestPlayAuth")
 	public  ProcessResult requestPlayAuth(HttpServletRequest request,@RequestBody AliVodPlayInfo aliVodPlayInfo) {
 		ProcessResult processResult = new ProcessResult();
-		processResult.setRetCode(VodServiceConst.RESULT_Error_Fail);
+		processResult.setRetCode(CourseServiceConst.RESULT_Error_Fail);
 		try {
 			processResult = aliVodService.requestPlayVideo(aliVodPlayInfo);
 		} catch (Exception e) {
@@ -129,11 +128,11 @@ public class VodController {
 	@RequestMapping(method = RequestMethod.POST,value = "requestPlayAuthList")
 	public  ProcessResult requestPlayAuth(HttpServletRequest request,@RequestBody RequestAjax requestAjax) {
 		ProcessResult processResult = new ProcessResult();
-		processResult.setRetCode(VodServiceConst.RESULT_Error_Fail);
+		processResult.setRetCode(CourseServiceConst.RESULT_Error_Fail);
 		
 		
 		try {
-			int iRet = VodServiceConst.RESULT_Success;
+			int iRet = CourseServiceConst.RESULT_Success;
 			//从客户端请求的字符串中解析出对象列表
 			List<AliVodPlayInfo> retList = new ArrayList<AliVodPlayInfo>();
 			List<AliVodPlayInfo> aliVodPlayInfos =  JsonUtil.fromJson(requestAjax.getReqParms(), new TypeToken<List<AliVodPlayInfo>>() {}.getType());
@@ -146,7 +145,7 @@ public class VodController {
 				{
 					
 					singlepResult = aliVodService.requestPlayVideo(aliVodPlayInfo);
-					if(singlepResult.getRetCode()==VodServiceConst.RESULT_Success)
+					if(singlepResult.getRetCode()==CourseServiceConst.RESULT_Success)
 					{
 						break;
 					}
@@ -155,7 +154,7 @@ public class VodController {
 						Thread.sleep(100);
 					}
 				}
-				if(singlepResult.getRetCode()!=VodServiceConst.RESULT_Success)
+				if(singlepResult.getRetCode()!=CourseServiceConst.RESULT_Success)
 				{
 					iRet = singlepResult.getRetCode();
 				}

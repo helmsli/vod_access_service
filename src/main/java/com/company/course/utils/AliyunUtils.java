@@ -1,4 +1,4 @@
-package com.company.vod.utils;
+package com.company.course.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -14,7 +14,7 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.company.vod.domain.AliyunSignature;
+import com.company.course.domain.AliyunSignature;
 
 public class AliyunUtils {
 	/**
